@@ -44,16 +44,11 @@ function draw(){
    a.render();
   pop();
 
-    translate(obj_x, obj_y, obj_z);
-    fill(255,0,0);
-    box();
-
-    translate(obj_x1, obj_y1, obj_z1);
+    //translate(obj_x, obj_y, obj_z);
+    //translate(obj_x1, obj_y1, obj_z1);
+    translate(0,0,cam_z*2);
     fill(0,255,0);
     box();
-
-
-
 
 
   //console.log(object[0]);
@@ -66,9 +61,9 @@ function mouseClicked(){
 
 
 function updateCamCenter(){
-  cam_dz = cos(pan)*cos(tilt);
-  cam_dx = sin(pan)*cos(tilt);
-  cam_dy = sin(tilt);
+  cam_dz = 1;
+  cam_dx = -sin(pan);
+  cam_dy = -sin(tilt);
 
   // compute scene center position
   cam_cx = cam_x + cam_dx;
@@ -77,9 +72,9 @@ function updateCamCenter(){
 
   obj_x = cam_x + 3*cam_dx;
   obj_y = cam_y + 3*cam_dy;
-  obj_z = cam_z + 3*cam_dz;
+  obj_z = cam_z +cam_dz;
 
-  obj_x1 = cam_x + 10*cam_dx;
-  obj_y1 = cam_y + 10*cam_dy;
-  obj_z1 = cam_z + 10*cam_dz;
+  obj_x1 = cam_x - cam_dx/64;
+  obj_y1 = cam_y - cam_dy/64;
+  obj_z1 = cam_z + cam_dz;
 }
