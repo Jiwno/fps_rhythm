@@ -10,7 +10,7 @@ class People{
     push();
       fill(this.color);
       translate(this.pos);
-      box(10,10,10);
+      box(50,50,50);
     pop();
   }
 
