@@ -50,20 +50,14 @@ function draw(){
     //translate(obj_x1, obj_y1, obj_z1);
     //translate(0,0,cam_z*2);
     push();
-    translate(0,50, obj_z);
+    translate(obj_x, obj_y, obj_z);
     fill(255,0,0);
     box();
     pop();
 
     push();
-    translate(0,0, obj_z);
+    translate(50,0, 50);
     fill(0,255,0);
-    box();
-    pop();
-
-    push();
-    translate(0,-50, obj_z);
-    fill(0,0,255);
     box();
     pop();
 
@@ -84,13 +78,15 @@ function updateCamCenter(){
   cam_dy = sin(tilt);
 
   // compute scene center position
-  cam_cx = cam_x + cam_dx;
-  cam_cy = cam_y + cam_dy;
-  cam_cz = cam_z + cam_dz;
+  cam_cx = cam_x + cam_dx*(-cam_z);
+  cam_cy = cam_y + cam_dy*(-cam_z);
+  cam_cz = cam_z + (cam_dz)*(-cam_z);
 
-  obj_x = cam_x + cam_dx*2;
-  obj_y = cam_y + cam_dy*2;
-  obj_z = cam_dz*2;
+  //obj_x = cam_x + cam_dx*(-cam_z);
+  //obj_y = cam_y + cam_dy*(-cam_z);
+  obj_x = cam_cx;
+  obj_y = cam_cy;
+  obj_z = cam_z + (cam_dz)*(-cam_z);
 
 
 }
