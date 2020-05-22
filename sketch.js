@@ -4,9 +4,9 @@ let col;
 let cam_x, cam_y, cam_z;
 let cam_dx, cam_dy, cam_dz;
 let cam_cx, cam_cy, cam_cz;
+let aim_x, aim_y, aim_z;
 let pan, tilt;
-let obj_x, obj_y, obj_z;
-let obj_x1, obj_y1, obj_z1;
+
 
 
 function preload(){
@@ -23,6 +23,7 @@ function setup(){
   pan = 0;
   tilt = 0;
 
+
   createCanvas(windowWidth, windowHeight, WEBGL);
   col = color(255,0,0);
 
@@ -30,12 +31,12 @@ function setup(){
 
 function draw(){
   a = new People(object[0], col);
-  background(255);
+  background(0);
 
   updateCamCenter();
   camera(cam_x, cam_y, cam_z,cam_cx, cam_cy, cam_cz,0,-1,0);
-  pan += movedX/128;
-  tilt -= movedY/128;
+  pan += movedX/360;
+  tilt -= movedY/360;
 
   //updateCamCenter();
   fill(0,0,255);
@@ -43,16 +44,16 @@ function draw(){
 
   push();
   fill(0);
-  // a.render();
+  a.render();
   pop();
 
-    //translate(obj_x, obj_y, obj_z);
-    //translate(obj_x1, obj_y1, obj_z1);
-    //translate(0,0,cam_z*2);
+
+//set aiming point
     push();
-    translate(obj_x, obj_y, obj_z);
-    fill(255,0,0);
-    box();
+    translate(aim_x, aim_y, aim_z);
+    fill(255);
+    noStroke();
+    sphere(0.5);
     pop();
 
     push();
@@ -82,11 +83,8 @@ function updateCamCenter(){
   cam_cy = cam_y + cam_dy*(-cam_z);
   cam_cz = cam_z + (cam_dz)*(-cam_z);
 
-  //obj_x = cam_x + cam_dx*(-cam_z);
-  //obj_y = cam_y + cam_dy*(-cam_z);
-  obj_x = cam_cx;
-  obj_y = cam_cy;
-  obj_z = cam_z + (cam_dz)*(-cam_z);
-
+  aim_x = cam_x + cam_dx*(-cam_z)/8;
+  aim_y = cam_y + cam_dy*(-cam_z)/8;
+  aim_z = cam_z + (cam_dz)*(-cam_z)/8;
 
 }
