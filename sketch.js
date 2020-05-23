@@ -1,26 +1,27 @@
 let object;
 let people = [];
 let peopletexture = [];
-let col;
-let col2;
 let cam_x, cam_y, cam_z;
 let cam_dx, cam_dy, cam_dz;
 let cam_cx, cam_cy, cam_cz;
 let aim_rad, aim_x, aim_y, aim_z, aim_tipangle;
 let pan, tilt;
+let song;
 let sensitivity;
-
-
+let start;
+let font;
 
 function preload(){
 object = loadJSON("object.json");
-  for(let i = 3; i <= 4; i++){
+song = loadSound('assets/song.mp3');
+font = loadFont('assets/NotoSansKR-Black.otf');
+  for(let i = 1; i <= 2; i++){
     peopletexture[i] = loadImage("assets/"+i+".png") ;
   }
-//peopletexture[0] = loadImage("assets/1.jpg");
 }
 
 function setup(){
+  //camera set-up
   cam_x = 0;
   cam_y = 0;
   cam_z = -(windowHeight/2/ tan(PI*30.0 / 180.0));
@@ -32,50 +33,65 @@ function setup(){
   sensitivity = 8;
   aim_rad = (-cam_z)/10;
 
+  start = false;
   createCanvas(windowWidth, windowHeight, WEBGL);
-  col = color(255,0,0);
-  col2 = color(0,255,0);
 }
 
 function draw(){
   background(0);
-  updateCamCenter();
-  camera(cam_x, cam_y, cam_z,cam_cx, cam_cy, cam_cz,0,-1,0);
-  pan += radians(movedX)/sensitivity;
-  tilt -= radians(movedY)/sensitivity;
 
-
-  //<Object.keys(object).length = length of the json object
-  for(let i = 0; i<Object.keys(object).length; i++){
-    people[i] = new People(object[i]);
+  if(start == false){
+    fill(255);
+    textFont(font);
+    textAlign(CENTER, CENTER);
+    textSize(60);
+    text("PLAY", 0,0);
   }
 
 
-  fill(0,0,255);
-//  plane(1000, 1000);
+  if (start == true){
+    //camera set-up
+    updateCamCenter();
+    camera(cam_x, cam_y, cam_z,cam_cx, cam_cy, cam_cz,0,-1,0);
+    pan += radians(movedX)/sensitivity;
+    tilt -= radians(movedY)/sensitivity;
 
-for(let i = 0; i<Object.keys(object).length; i++){
-  people[i].render();
-}
+    //load people data from JSON file
+    for(let i = 0; i<Object.keys(object).length; i++){
+      people[i] = new People(object[i]);
+    }
 
+    //render people
+    for(let i = 0; i<Object.keys(object).length; i++){
+      people[i].render();
+    }
 
-//set aiming point
+    //set aiming point
     push();
     translate(aim_x, aim_y, aim_z);
     fill(255);
     noStroke();
     sphere(0.5);
     pop();
-
-
-  //console.log(object[0]);
+  }
 }
 
 function mouseClicked(){
-  for(let i = 0; i<Object.keys(object).length; i++){
-    people[i].detected();
-    console.log(0+": "+people[0].detected());
+  if (start == false){
+    clear();
+    start = true;
+    song.play();
   }
+
+  else{
+    //hit-box detecton
+    for(let i = 0; i<Object.keys(object).length; i++){
+      people[i].detected();
+      console.log(0+": "+people[0].detected());
+    }
+  }
+
+
   requestPointerLock();
 }
 
