@@ -6,7 +6,7 @@ class People {
     this.rad = (-cam_z) * jsonobj.rad;
     this.jsonrad = HALF_PI*jsonobj.rad;
     this.pos = createVector(cam_x + (this.rad) * sin(radians(jsonobj.pan)), cam_y + (this.rad) * sin(radians(jsonobj.tilt)), cam_z + (this.rad) * cos(radians(jsonobj.pan)) * cos(radians(jsonobj.tilt)));
-    this.color = color(jsonobj.r, jsonobj.g, jsonobj.b);
+
     this.centeranglex = atan((this.pos.x-cam_x)/(this.pos.z-cam_z));
     this.centerangley = atan((this.pos.y-cam_y)/(this.pos.z-cam_z));
     this.width = 25;
@@ -18,13 +18,14 @@ class People {
     this.upangle = this.centerangley+this.tipangle;
     this.downangle = this.centerangley-this.tipangle;
     this.detect;
+    this.texture = jsonobj.texture;
     //we need to compare cam(pan&tilt) w/ jsonobj.pan&tilt.
   }
 
   render() {
     //if song time ~ == this.time
     push();
-    fill(this.color);
+    texture(peopletexture[this.texture]);
     translate(this.pos);
     box(50, 50, 50);
     pop();
