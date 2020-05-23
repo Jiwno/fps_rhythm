@@ -15,7 +15,7 @@ function preload(){
 object = loadJSON("object.json");
 song = loadSound('assets/song.mp3');
 font = loadFont('assets/NotoSansKR-Black.otf');
-  for(let i = 1; i <= 2; i++){
+  for(let i = 1; i<=1; i++){
     peopletexture[i] = loadImage("assets/"+i+".png") ;
   }
 }
@@ -90,8 +90,6 @@ function mouseClicked(){
       console.log(0+": "+people[0].detected());
     }
   }
-
-
   requestPointerLock();
 }
 

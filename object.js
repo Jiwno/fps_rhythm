@@ -9,8 +9,6 @@ class People {
     this.centeranglex = atan((this.pos.x-cam_x)/(this.pos.z-cam_z));
     this.centerangley = atan((this.pos.y-cam_y)/(this.pos.z-cam_z));
     this.width = 25;
-    this.height = 50;
-    this.depth = 25;
     this.diagonal = this.width * sqrt(2);
     this.distance = sqrt(sq(this.pos.x-cam_x)+sq(this.pos.z-cam_z));
     this.tipangle = asin(this.diagonal/this.distance);
@@ -28,8 +26,9 @@ class People {
     if(song.currentTime() >= this.appear_time){
       push();
       texture(peopletexture[this.texture]);
+
       translate(this.pos);
-      box(50, 100, 50);
+      box(50, 50, 50);
       pop();
     }
   }

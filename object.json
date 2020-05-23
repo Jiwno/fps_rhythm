@@ -1,15 +1,22 @@
 [{
-		"appear_time": 5,
+		"appear_time": 0,
 		"pan": 0,
 		"tilt": 0,
-		"rad": 0.2,
+		"rad": 0.5,
+		"texture" : 1
+},
+{
+		"appear_time": 5,
+		"pan": 10,
+		"tilt": 0,
+		"rad": 0.5,
 		"texture" : 1
 },
 {
 		"appear_time": 10,
-		"pan": 10,
+		"pan": -10,
 		"tilt": 0,
 		"rad": 0.5,
-		"texture" : 2
+		"texture" : 1
 }
 ]
