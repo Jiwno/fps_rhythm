@@ -10,13 +10,13 @@
 		"pan": 10,
 		"tilt": 0,
 		"rad": 0.5,
-		"texture" : 1
+		"texture" : 6
 },
 {
 		"appear_time": 10,
 		"pan": -10,
 		"tilt": 0,
 		"rad": 0.5,
-		"texture" : 1
+		"texture" : 4
 }
 ]

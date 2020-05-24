@@ -1,6 +1,8 @@
 let object;
 let people = [];
 let peopletexture = [];
+let soundeffect = [];
+let anime = [];
 let cam_x, cam_y, cam_z;
 let cam_dx, cam_dy, cam_dz;
 let cam_cx, cam_cy, cam_cz;
@@ -14,9 +16,13 @@ let font;
 function preload(){
 object = loadJSON("object.json");
 song = loadSound('assets/song.mp3');
+for(let i = 1; i<=4; i++){
+  soundeffect[i] = loadSound("assets/soundeffect/effect"+i+".wav") ;
+  anime[i] = loadSound("assets/soundeffect/anime"+i+".mp3") ;
+}
 font = loadFont('assets/NotoSansKR-Black.otf');
-  for(let i = 1; i<=1; i++){
-    peopletexture[i] = loadImage("assets/"+i+".png") ;
+  for(let i = 1; i<=6; i++){
+    peopletexture[i] = loadImage("assets/slime/"+i+".png") ;
   }
 }
 
@@ -34,6 +40,11 @@ function setup(){
   aim_rad = (-cam_z)/10;
 
   start = false;
+
+  for(let i = 0; i<Object.keys(object).length; i++){
+    people[i] = new People(object[i]);
+    people[i].detect = false;
+  }
   createCanvas(windowWidth, windowHeight, WEBGL);
 }
 
@@ -58,20 +69,17 @@ function draw(){
 
     //load people data from JSON file
     for(let i = 0; i<Object.keys(object).length; i++){
-      people[i] = new People(object[i]);
-    }
-
-    //render people
-    for(let i = 0; i<Object.keys(object).length; i++){
+      people[i].rescued();
       people[i].render();
     }
+
 
     //set aiming point
     push();
     translate(aim_x, aim_y, aim_z);
     fill(255);
     noStroke();
-    sphere(0.5);
+    sphere(0.5,4,4);
     pop();
   }
 }
@@ -87,7 +95,6 @@ function mouseClicked(){
     //hit-box detecton
     for(let i = 0; i<Object.keys(object).length; i++){
       people[i].detected();
-      console.log(0+": "+people[0].detected());
     }
   }
   requestPointerLock();
